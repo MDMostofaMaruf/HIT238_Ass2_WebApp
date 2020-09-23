@@ -1,0 +1,59 @@
+<Html>
+    <head>
+ <title>
+     Landing page
+    
+ </title>
+        <link rel="stylesheet" type ="text/css" href="css/landing.css">
+</head>
+<body style="background-image:url(image/Loginimages.jpg)">
+    
+    <div class="Landing-Container">
+        <div class ="Top">
+            <img src = "image/docplus.png">
+        </div>
+     <div class ="login">
+        <form action="home.html" id="myForm" method="post">
+  
+
+  <div class="login-items">
+    <label for="email"><b>Email</b></label>
+    <input type="text" placeholder="Enter Email" name="email" required>
+
+    <label for="psw"><b>Password</b></label>
+    <input type="password" placeholder="Enter Password" name="psw"  pattern="(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).{8,}" title="Must contain at least one number and one uppercase and lowercase letter, and at least 8 or more characters" required>
+
+      <button type="submit">Login</button>
+      
+    <label>
+      <input type="checkbox" checked="checked" name="remember"> Remember password
+    </label>
+  </div>
+
+  <div class="login-items" style="background-color:#f1f1f1">
+    <button type="button" onclick="CancelFunction()" class="cancelbtn">Cancel</button>
+    <span class="psw">Forgot <a href="#">password?</a></span>
+      
+  </div>
+</form> 
+         
+         
+         <button type="submit" class ="Sign-upbtn"><a href = "SignUp.html"> Sign up </a></button>
+         
+        </div>
+        
+        <div class ="bottom">
+        
+        </div>
+    </div>
+    </body>
+    
+    <script  src= "js/main.js">
+        function CancelFunction(){
+            document.getElementById("myForm").reset();
+        }
+
+        
+    </script>
+
+</Html>

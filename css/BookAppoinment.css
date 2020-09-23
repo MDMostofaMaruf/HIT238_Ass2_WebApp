@@ -1,0 +1,197 @@
+.inputRow {
+  display: -ms-flexbox; /* IE10 */
+  display: flex;
+  -ms-flex-wrap: wrap; /* IE10 */
+  flex-wrap: wrap;
+  margin: 0 -14px;
+}
+.Form {
+
+  border-radius: 3px;
+      display:grid;
+	grid-templates-columns:1fr;
+      text-align: center;
+    
+      justify-content: center;
+  align-items: center;
+     
+    width: 50%%;
+        height:50%;
+}
+
+input[type=text] {
+  width: 100%;
+  margin-bottom: 20px;
+  padding: 10px;
+  border: 1px solid #ccc;
+  border-radius: 3px;
+}
+
+input[type=email] {
+  width: 100%;
+  margin-bottom: 20px;
+  padding: 10px;
+  border: 1px solid #ccc;
+  border-radius: 3px;
+}
+
+input[type=time] {
+  width: 100%;
+  margin-bottom: 20px;
+  padding: 10px;
+  border: 1px solid #ccc;
+  border-radius: 3px;
+}
+input[type=date] {
+  width: 100%;
+  margin-bottom: 20px;
+  padding: 10px;
+  border: 1px solid #ccc;
+  border-radius: 3px;
+}
+
+label {
+  margin-bottom: 10px;
+  display: block;
+}
+
+.icon-container {
+  margin-bottom: 20px;
+  padding: 7px 0;
+  font-size: 24px;
+}
+
+button{
+    
+      background-color: #4CAF50;
+  color: white;
+  padding: 14px 20px;
+  margin: 8px 0;
+  border: none;
+  cursor: pointer;
+  width: 100%;
+}
+
+/* Add a hover effect for buttons */
+button:hover {
+  opacity: 0.8;
+
+}
+
+body{
+	margin:0px;
+	font-family: "Lato" , sans-serif;
+    background-color: #0d3380;
+}
+
+.body-container{
+	display:grid;
+	grid-templates-columns:1fr;
+ 
+}
+
+.nav-bar{
+    display:flex;
+	justify-content: space-between;
+    padding: 5px;
+     position: relative;
+  min-height: 10px; 
+ 
+   
+	
+}
+
+.Left-nav-bar {
+  background-color: #333;
+  overflow: hidden;
+}
+
+/* Style the links inside the navigation bar */
+.Left-nav-bar a {
+  float: left;
+  color: #f2f2f2;
+  text-align: center;
+  padding: 10px 6px;
+  text-decoration: none;
+  font-size: 13px;
+}
+
+/* Change the color of links on hover */
+.Left-nav-bar a:hover {
+  background-color: #ddd;
+  color: black;
+}
+
+/* Add a color to the active/current link */
+.Left-nav-bar a.active {
+  background-color: #4CAF50;
+  color: white;
+}
+
+
+
+
+.Right-nav-bar {
+  background-color: #333;
+  overflow: hidden;
+}
+
+/* Style the links inside the navigation bar */
+.Right-nav-bar a {
+  float: left;
+  color: #f2f2f2;
+  text-align: center;
+  padding: 10px 6px;
+  text-decoration: none;
+  font-size: 13px;
+}
+
+/* Change the color of links on hover */
+.Right-nav-bar a:hover {
+  background-color: #ddd;
+  color: black;
+}
+
+/* Add a color to the active/current link */
+.Right-nav-bar a.active {
+  background-color: #4CAF50;
+  color: white;
+}
+
+
+.head-content{
+    
+    align-items:center;
+	height:100%;
+	padding-left:100px
+	padding-right:100px; 
+	color:black;
+	font-size:20px;
+    text-align: center
+}
+
+@media screen and (max-width: 600px) {
+  .nav-bar a, .nav-bar input[type=text] {
+    float: none;
+    display: block;
+    text-align: left;
+    width: 100%;
+    margin: 0;
+    padding: 14px;
+  }
+  .nav-bar input[type=text] {
+    border: 1px solid #ccc;
+  }
+}
+
+.outputTable{
+    
+    display: block;
+}
+table {
+  border: 1px solid black;
+}
+table, th, td {
+  border: 1px solid black;
+    padding: 10px;
+}
