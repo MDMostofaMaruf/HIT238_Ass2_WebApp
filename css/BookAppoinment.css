@@ -53,6 +53,8 @@ input[type=date] {
 label {
   margin-bottom: 10px;
   display: block;
+    box-sizing: border-box;
+    width: 50%
 }
 
 .icon-container {
@@ -195,3 +197,5 @@ table, th, td {
   border: 1px solid black;
     padding: 10px;
 }
+
+
