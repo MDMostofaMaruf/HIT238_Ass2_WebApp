@@ -63,14 +63,19 @@
     
   </div>
         </div>
-  <div id="container">
-      <h2>Task List</h2>
-      <ul id="task_wrapper"></ul>
-    </div>
+  <table class="outputTable">
+      
+      <tr>
+      <td> Doctors Name </td>
+          <td> Email  </td>
+          <td> First name </td>
+           <td> Last name </td>
+      </tr>
+  </table>
 </div>
         
         
-       
+    
     </div>
     </body>
     
@@ -82,172 +87,103 @@
     
     <script>
     
- (function() {
-  'use strict';
-  var lastId = 0;
-  var taskWrapper = document.getElementById("task_wrapper");
-  var btnSave = document.getElementById("saveBtn");
-  var removeIcon;
-  var updateIcon;
-  var taskList;
+        
+        
+function saveDataClicked(evt) {
+  evt.preventDefault();
+  var key = document.querySelector('#keyInput').value
+  var value = document.querySelector('#valueInput').value
+    var value1 = document.querySelector('#valueInput1').value
+      var value2 = document.querySelector('#valueInput2').value
+            var value3 = document.querySelector('#valueInput3').value
+                  var value4 = document.querySelector('#valueInput4').value
+                  
+                 var item= [value,value1,value2,value3,value4]
+  
+ localStorage.setItem(key,JSON.stringify(item))
+         console.log(`${key}:${item}`)
+        
 
-  // Initialize taskList 
-  // Add event to save button
-  // Render the list
+  // Write code here
+}
+        
 
-  function init() {
-
-    if (!!(window.localStorage.getItem('taskList'))) {
-      taskList = JSON.parse(window.localStorage.getItem('taskList'));
-    } else {
-      taskList = [];
-    }
-    btnSave.addEventListener('click', saveTask);
-    showList();
-  }
-
-  //End Init
-
-  //CRUD task
-
-  function showList() {
-
-    if (!!taskList.length) {
-      getLastTaskId();
-      for (var item in taskList) {
-        var task = taskList[item];
-        addTaskToList(task);
-      }
-      syncEvents();
-    }
-    
-  }
-
-  function saveTask(event) {
-
-    var task = {
-      taskId: lastId,
-      taskDes: document.getElementById("keyInput").value,
-      taskState: document.getElementById("valueInput").value,
-       
+/**
+* Load data from storage and show in the table
+* @param {Event} evt Click event
+* @return {undefined} No return value
+**/
+        
+ function loadDataClicked(evt) {
+  evt.preventDefault();
+  document
+    .querySelector('.outputTable')
+    .innerHTML = '';
+  
+  
+for(var i = 0; i < localStorage.length; i++) {
+    var key = localStorage.key(i);
+   var item = JSON.parse(localStorage.getItem(key));
    
-    };
-    taskList.push(task);
-    syncTask();
-    addTaskToList(task);
-    syncEvents();
-    lastId++;
-  }
-
-  function addTaskToList(task) {
-
-    var removeIcon = document.createElement('span');
-    var element = document.createElement('li');
-    var updateIcon = document.createElement('span');
-
-    removeIcon.innerHTML = "X";
-    removeIcon.className = "remove_item clickeable";
-    removeIcon.setAttribute("title", "Remove");
-
-    updateIcon.innerHTML = "U";
-    updateIcon.className = "update_icon clickeable";
-    updateIcon.setAttribute("title", "Update");
-
-
-    element.appendChild(removeIcon);
-    element.appendChild(updateIcon);
-    element.setAttribute("id", task.taskId);
-    element.innerHTML += task.taskDes;
-      taskWrapper.appendChild(element);
+  
+  console.log(`${key}:${item}`);
+  showRow(key, item);
     
-  }
+};
+    
 
-  function updateTask(event) {
-
-    var taskTag = event.currentTarget.parentNode;
-    var taskId = taskTag.id;
-    var taskToUpdate = findTask(taskId).task;
-    var pos = findTask(taskId).pos;
-    if (!!taskToUpdate) {
-      var des = prompt("Task Description", taskToUpdate.taskDes);
-      var state = prompt("Task State", taskToUpdate.taskState);
-      taskToUpdate.taskDes = des;
-      taskToUpdate.taskState = state;
-      taskList[pos] = taskToUpdate;
-      taskTag.lastChild.textContent = taskToUpdate.taskDes;
-      syncTask();
-    }
-  }
-
-  function removeTask(event) {
-
-    var taskToRemove = event.currentTarget.parentNode;
-    var taskId = taskToRemove.id;
-    taskWrapper.removeChild(taskToRemove);
-    taskList.forEach(function(value, i) {
-      if (value.taskId == taskId) {
-        taskList.splice(i, 1);
-      }
-    })
-
-    syncTask();
-  }
-
-  // End CRUD
+  
+  // Write code here
+}
 
 
-  //Common
+function deleteClicked(evt) {
+  var key = evt.target.dataset.key;
+    localStorage.removeItem(key);
 
-  function syncTask() {
+  // Write code here
+}
 
-    window.localStorage.setItem('taskList', JSON.stringify(taskList));
-    taskList = JSON.parse(window.localStorage.getItem('taskList'));
-  }
+/**
+* Add a new row to the output table
+* @param {string} key The key value to show
+* @param {string} value The value to show
+* @return {Element} The table row object
+**/
+function showRow(key, item) {
+  var keyCell = document.createElement('td');
+  keyCell.innerHTML = key;
+  var valueCell = document.createElement('td');
+  valueCell.innerHTML = item;
 
-  function getLastTaskId() {
-    var lastTask = taskList[taskList.length - 1];
-    lastId = lastTask.taskId + 1;
-  }
+  var deleteRow = document.createElement('td');
+  var deleteButton = document.createElement('button');
+  deleteButton.class = 'delBtn';
+  deleteButton.innerHTML = 'delete';
+  deleteButton.dataset.key = key;
+  deleteButton.addEventListener('click', deleteClicked);
+  deleteRow.appendChild(deleteButton);
+  var row = document.createElement('tr');
+  row.appendChild(keyCell);
+  row.appendChild(valueCell);
+  
+  
+  row.appendChild(deleteRow);
 
-  function syncEvents() {
+  document
+    .querySelector('.outputTable')
+    .appendChild(row);
+  return row;
+}
 
-    updateIcon = document.getElementsByClassName("update_icon");
-    removeIcon = document.getElementsByClassName("remove_item");
-    if (!!removeIcon.length) {
-      for (var i = 0; i < removeIcon.length; i++) {
-        removeIcon[i].addEventListener('click', removeTask);
-      }
-    }
-    if (!!updateIcon.length) {
-      for (var j = 0; j < updateIcon.length; j++) {
-        updateIcon[j].addEventListener('click', updateTask);
-      }
-    }
-  }
+document
+  .getElementById('saveBtn')
+  .addEventListener('click', saveDataClicked);
 
-  function findTask(id) {
+document
+  .getElementById('loadBtn')
+  .addEventListener('click', loadDataClicked);
 
-    var response = {
-      task: '',
-      pos: 0
-    };
-    taskList.forEach(function(value, i) {
-      if (value.taskId == id) {
-        response.task = value;
-        response.pos = i;
-      }
-    });
-
-    return response;
-  }
-
-  //End Common
-
-
-  init();
-
-
-})();
 
   // Write code here
 
