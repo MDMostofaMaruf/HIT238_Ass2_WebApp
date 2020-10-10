@@ -12,7 +12,7 @@ self.addEventListener('install', e =>{
 //call activate event
 self.addEventListener('activate', e=>{
 
-    console.log('activated');
+    console.log('activate');
 
     //remove unwanted caches
     e.waitUntil(
@@ -32,7 +32,6 @@ return caches.delete(cache);
         })
     );
 });
-
 
 
 //call Fetch Event
