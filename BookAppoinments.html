@@ -1,0 +1,199 @@
+<html>
+<head>
+    <title>
+    Appoinments
+    </title>
+    <link rel="stylesheet" type ="text/css" href="css/BookAppoinment.css">
+    </head>
+<body style="background-image:url(image/form.jpeg)">
+    
+    <div class= "body-container">
+
+          <div class ="nav-bar">
+        <div class="Left-nav-bar">
+        <a href="home.html">Home</a>
+       <a href="MyProfile.html">My profile</a>
+            <a href="MyAppoinments.html">My appoinments</a>
+       <a href="about.html">About us</a>
+        </div>
+        
+        <div class ="Right-nav-bar">
+        <a href="index.html">Log in</a>
+       <a href="SignUp.html"> Sign up</a>
+            <a> <input type="text" placeholder="Search..">    </a>
+        </div>
+            
+            
+    </div>
+        
+                <div class ="head-content">
+            <h1> Book your appoinments</h1>
+        
+        </div>
+    <div class="Form">
+  <div class="inputForm">
+      <div class="inputRow">
+      <label for="valueInput">Doctor's Name</label>
+      <input type="text" name="key" id="valueInput" />
+    </div>
+    <div class="inputRow">
+      <label for="keyInput">Email</label>
+      <input type="email" name="key" id="keyInput" />
+    </div>
+    <div class="inputRow">
+      <label for="valueInput1">First name</label>
+      <input type="text" name="value" id="valueInput1" />
+    </div>
+       <div class="inputRow">
+      <label for="valueInput2">Last name</label>
+      <input type="text" name="value" id="valueInput2" />
+    </div>
+      <div class="inputRow">
+      <label for="valueInput3">Date</label>
+      <input type="date" name="value" id="valueInput3" />
+    </div>
+       <div class="inputRow">
+      <label for="valueInput4">Time</label>
+      <input type="time" name="value" id="valueInput4" />
+    </div>
+      
+      <div class = "inputRow">
+    <button id="saveBtn">Confirm</button>
+          <button id="loadBtn">Load Data</button>
+    
+  </div>
+        </div>
+  <table class="outputTable">
+      
+      <tr>
+      <td> Doctors Name </td>
+          <td> Email  </td>
+          <td> First name </td>
+           <td> Last name </td>
+      </tr>
+  </table>
+</div>
+        
+        
+    
+    </div>
+    </body>
+    
+    
+    
+    
+    
+    
+    <script  src= "js/main.js">
+     
+      
+
+      
+  </script>
+    <script>
+    
+        
+        
+function saveDataClicked(evt) {
+  evt.preventDefault();
+  var key = document.querySelector('#keyInput').value
+  var value = document.querySelector('#valueInput').value
+    var value1 = document.querySelector('#valueInput1').value
+      var value2 = document.querySelector('#valueInput2').value
+            var value3 = document.querySelector('#valueInput3').value
+                  var value4 = document.querySelector('#valueInput4').value
+                  
+                 var item= [value,value1,value2,value3,value4]
+  
+ localStorage.setItem(key,JSON.stringify(item))
+         console.log(`${key}:${item}`)
+        
+
+  // Write code here
+}
+        
+
+/**
+* Load data from storage and show in the table
+* @param {Event} evt Click event
+* @return {undefined} No return value
+**/
+        
+ function loadDataClicked(evt) {
+  evt.preventDefault();
+  document
+    .querySelector('.outputTable')
+    .innerHTML = '';
+  
+  
+for(var i = 0; i < localStorage.length; i++) {
+    var key = localStorage.key(i);
+   var item = JSON.parse(localStorage.getItem(key));
+   
+  
+  console.log(`${key}:${item}`);
+  showRow(key, item);
+    
+};
+    
+
+  
+  // Write code here
+}
+
+
+function deleteClicked(evt) {
+  var key = evt.target.dataset.key;
+    localStorage.removeItem(key);
+
+  // Write code here
+}
+
+/**
+* Add a new row to the output table
+* @param {string} key The key value to show
+* @param {string} value The value to show
+* @return {Element} The table row object
+**/
+function showRow(key, item) {
+  var keyCell = document.createElement('td');
+  keyCell.innerHTML = key;
+  var valueCell = document.createElement('td');
+  valueCell.innerHTML = item;
+
+  var deleteRow = document.createElement('td');
+  var deleteButton = document.createElement('button');
+  deleteButton.class = 'delBtn';
+  deleteButton.innerHTML = 'delete';
+  deleteButton.dataset.key = key;
+  deleteButton.addEventListener('click', deleteClicked);
+  deleteRow.appendChild(deleteButton);
+  var row = document.createElement('tr');
+  row.appendChild(keyCell);
+  row.appendChild(valueCell);
+  
+  
+  row.appendChild(deleteRow);
+
+  document
+    .querySelector('.outputTable')
+    .appendChild(row);
+  return row;
+}
+
+document
+  .getElementById('saveBtn')
+  .addEventListener('click', saveDataClicked);
+
+document
+  .getElementById('loadBtn')
+  .addEventListener('click', loadDataClicked);
+
+
+  // Write code here
+
+
+    
+    </script>
+    </html>
+        
