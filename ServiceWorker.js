@@ -1,21 +1,21 @@
-const cacheName= 'v2';
+const cacheName= 'v';
 
 
 // call install event
 
-self.addEventListener('install', e =>{
+self.addEventListener('install', event =>{
     console.log('installed');
    
 }) ;
 
 
 //call activate event
-self.addEventListener('activate', e=>{
+self.addEventListener('activate', event=>{
 
     console.log('activated');
 
     //remove unwanted caches
-    e.waitUntil(
+    event.waitUntil(
         caches.keys().then(cacheName=>{
 return Promise.all(
 
@@ -36,10 +36,10 @@ return caches.delete(cache);
 
 
 //call Fetch Event
-self.addEventListener('fetch', e =>{
+self.addEventListener('fetch', event =>{
     console.log('fecthing');
-    e.respondWith(
-fetch(e.request)
+    event.respondWith(
+fetch(event.request)
 .then(res=>{
 //make copy/clone of response
 const resClone = res.clone();
@@ -49,11 +49,11 @@ caches
 .open(cacheName)
 .then(cache =>{
 
-    cache.put(e.request, resClone);
+    cache.put(event.request, resClone);
 });
 return res;
 
-}) .catch(err => caches.match(e.request).then(res =>res))
+}) .catch(err => caches.match(event.request).then(res =>res))
        
     );
 });
