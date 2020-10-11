@@ -47,8 +47,9 @@ const resClone = res.clone();
 caches
 .open(cacheName)
 .then(cache =>{
-
-    cache.put(e.request, resClone);
+    
+    cache.put(e.request, resClone)
+     
 });
 return res;
 

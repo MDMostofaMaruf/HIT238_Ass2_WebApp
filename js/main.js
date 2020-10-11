@@ -3,7 +3,7 @@ if ('serviceWorker' in navigator){
     window.addEventListener('load',()=>{
         navigator.serviceWorker
         .register('../ServiceWorker.js')
-        .then(reg => console.log('service worker:regsiter'))
+        .then(Reg => console.log('service worker:regsiter'))
         .catch(err => console.log(`error: ${err}`))
         
     })
