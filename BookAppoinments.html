@@ -4,7 +4,6 @@
     Appoinments
     </title>
     <link rel="stylesheet" type ="text/css" href="css/BookAppoinment.css">
-    <link rel ="manifest" href ="manifest.json">
     </head>
 <body style="background-image:url(image/form.jpeg)">
     
@@ -35,7 +34,13 @@
   <div class="inputForm">
       <div class="inputRow">
       <label for="valueInput">Doctor's Name</label>
-      <input type="text" name="key" id="valueInput" />
+        <select type="text" id="valueInput">
+          <option value=""></option>
+          <option value="Dr Nirmala Godavitharana">Dr Nirmala Godavitharana</option>
+          <option value="Dr Sofia Mir">Dr Sofia Mir</option>
+          <option value="Dr Kalinga (Karl) Herath">Dr Kalinga (Karl) Herath</option>
+          <option value="Dr (Bandi) Watogla Samarasena">Dr (Bandi) Watogla Samarasenah</option>
+        </select>
     </div>
     <div class="inputRow">
       <label for="keyInput">Email</label>
@@ -60,7 +65,7 @@
       
       <div class = "inputRow">
     <button id="saveBtn">Confirm</button>
-          <button id="loadBtn">Load Data</button>
+          <button id="loadBtn">My Appoinments</button>
     
   </div>
         </div>
@@ -71,116 +76,84 @@
           <td> Email  </td>
           <td> First name </td>
            <td> Last name </td>
+          <td> Date </td>
+          <td> Time </td>
       </tr>
   </table>
 </div>
-        
-        
-    
     </div>
     </body>
     
-    
-    
-    
-    
-    
-    <script  src= "js/main.js">
-     
-      
-
-      
-  </script>
     <script>
     
-        
-        
-function saveDataClicked(evt) {
-  evt.preventDefault();
-  var key = document.querySelector('#keyInput').value
-  var value = document.querySelector('#valueInput').value
-    var value1 = document.querySelector('#valueInput1').value
-      var value2 = document.querySelector('#valueInput2').value
-            var value3 = document.querySelector('#valueInput3').value
-                  var value4 = document.querySelector('#valueInput4').value
-                  
-                 var item= [value,value1,value2,value3,value4]
   
- localStorage.setItem(key,JSON.stringify(item))
-         console.log(`${key}:${item}`)
-        
+var AppoinmentFormArray = [];
 
-  // Write code here
+
+function loadDataClicked() {
+  if (localStorage.BookAppoinment) {
+      AppoinmentFormArray = JSON.parse(localStorage.BookAppoinment);
+      for (var i = 0; i < AppoinmentFormArray.length; i++) {
+          showRow(AppoinmentFormArray[i].DocName1, AppoinmentFormArray[i].Email1, AppoinmentFormArray[i].Fname1,AppoinmentFormArray[i].Lname1)
+      }
+
+  }
+
 }
-        
 
-/**
-* Load data from storage and show in the table
-* @param {Event} evt Click event
-* @return {undefined} No return value
-**/
-        
- function loadDataClicked(evt) {
-  evt.preventDefault();
-  document
-    .querySelector('.outputTable')
-    .innerHTML = '';
-  
-  
-for(var i = 0; i < localStorage.length; i++) {
-    var key = localStorage.key(i);
-   var item = JSON.parse(localStorage.getItem(key));
-   
-  
-  console.log(`${key}:${item}`);
-  showRow(key, item);
+
+function saveDataClicked() {
+     var DocName = document.getElementById("valueInput").value;
+    var Email = document.getElementById("keyInput").value;
+    var Fname = document.getElementById("valueInput1").value;
+     var Lname = document.getElementById("valueInput2").value;
     
-};
+    var stuObj = {DocName1: DocName, Email1: Email, Fname1: Fname,Lname1:Lname};
+    AppoinmentFormArray.push(stuObj);
+    localStorage.BookAppoinment = JSON.stringify(AppoinmentFormArray);
+
+    showRow(DocName, Email,Fname,Lname);
+    console.log(DocName, Email,Fname,Lname);
     
 
-  
-  // Write code here
 }
+        
 
 
-function deleteClicked(evt) {
-  var key = evt.target.dataset.key;
-    localStorage.removeItem(key);
 
-  // Write code here
-}
 
-/**
-* Add a new row to the output table
-* @param {string} key The key value to show
-* @param {string} value The value to show
-* @return {Element} The table row object
-**/
-function showRow(key, item) {
+
+
+function showRow(DocName, Email,Fname,Lname) {
   var keyCell = document.createElement('td');
-  keyCell.innerHTML = key;
+  keyCell.innerHTML = DocName;
   var valueCell = document.createElement('td');
-  valueCell.innerHTML = item;
+  valueCell.innerHTML = Email;
+     var valueCell1 = document.createElement('td');
+  valueCell1.innerHTML = Fname;
+    var valueCell2 = document.createElement('td');
+  valueCell2.innerHTML = Lname;
 
-  var deleteRow = document.createElement('td');
-  var deleteButton = document.createElement('button');
-  deleteButton.class = 'delBtn';
-  deleteButton.innerHTML = 'delete';
-  deleteButton.dataset.key = key;
-  deleteButton.addEventListener('click', deleteClicked);
-  deleteRow.appendChild(deleteButton);
+ 
   var row = document.createElement('tr');
+    var row = document.createElement('tr');
+     var row = document.createElement('tr');
+     var row = document.createElement('tr');
   row.appendChild(keyCell);
   row.appendChild(valueCell);
+     row.appendChild(valueCell1);
+      row.appendChild(valueCell2);
   
-  
-  row.appendChild(deleteRow);
+ 
 
   document
     .querySelector('.outputTable')
     .appendChild(row);
   return row;
+    
+     
 }
+       
 
 document
   .getElementById('saveBtn')
@@ -190,11 +163,6 @@ document
   .getElementById('loadBtn')
   .addEventListener('click', loadDataClicked);
 
-
-  // Write code here
-
-
-    
     </script>
     </html>
         
