@@ -5,6 +5,8 @@ var myArray = [
     {'name':'Dr (Bandi) Watogla Samarasena', 'ava':'Available from: Mon, 28/9'},
     {'name':'Tim', 'ava':'Available from: Mon, 28/9'},
     {'name':'Erik', 'ava':'Available from: Mon, 28/9' },
+    {'name':'Dr Akash huda', 'ava':'Available from: Mon, 28/9'},
+    {'name':'Dr Ghatu Farhan choto nunu', 'ava':'Available from: Mon, 28/9'},
 ]
 
 $('#search-input').on('keyup', function(){
