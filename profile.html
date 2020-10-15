@@ -1,13 +1,124 @@
-<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
-<link rel="stylesheet" type ="text/css" href="css/profile.css">
-<div class="card">
-  <img src="img.jpg" alt="John" style="width:100%">
-  <h1>John Doe</h1>
-  <p class="title">CEO & Founder, Example</p>
-  <p>Harvard University</p>
-  <a href="#"><i class="fa fa-dribbble"></i></a>
-  <a href="#"><i class="fa fa-twitter"></i></a>
-  <a href="#"><i class="fa fa-linkedin"></i></a>
-  <a href="#"><i class="fa fa-facebook"></i></a>
-  <p><button>Contact</button></p>
-</div>
+<html>
+<head>
+
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+    <link rel="stylesheet" type ="text/css" href="css/profile.css">
+
+</head>
+
+<body>
+    <div class ="body-container">
+        <div class ="nav-bar">
+            <div class="Left-nav-bar">
+            <a  href="home.html">Home</a>
+                <a href="DocList.html"> Doc list</a>
+           <a class ="active" href="profile.html">My profile</a>
+           <a href="MyAppoinments.html">My appoinments</a>
+           <a href="about.html">About us</a>
+            </div>
+            
+            <div class ="Right-nav-bar">
+            <a href="index.html">Log in</a>
+           <a href="SignUp.html"> Sign up</a>
+                <a> <input type="text" placeholder="Search..">    </a>
+                </div>\</div>
+    <div class="card">
+        <img src="image/img1.gif" alt="John" style="width:100%">
+        <h1>John </h1>
+        <p class="title"></p>
+        <p></p>
+        <a href="#"><i class="fa fa-dribbble"></i></a>
+        <a href="#"><i class="fa fa-twitter"></i></a>
+        <a href="#"><i class="fa fa-linkedin"></i></a>
+        <a href="#"><i class="fa fa-facebook"></i></a>
+        <p><button>Contact</button></p>
+        <button id="recordBtn">Start Recording your problem</button>
+<div id="audioContainer"></div>
+      </div>
+      </div>
+</body>
+<script>
+    
+function bindButtons(stream) {
+  console.log('setup');
+  var mediaRecorder = new MediaRecorder(stream);
+  
+  var recordBtn = document.getElementById('recordBtn');
+  var audioContainer = document.getElementById('audioContainer');
+  var recording = false;
+  var chunks = [];
+
+
+  // Code::Listen for data available event and add to chunks
+  
+  mediaRecorder.addEventListener('dataavailable', function(evt) {
+    console.log(evt);
+    chunks.push(evt.data);
+    
+})
+  // Code::Listen for stop event
+  mediaRecorder.addEventListener('stop', function() {
+  // Create a blob from the chunks and reset chunks to an empty array
+    var blob = new Blob(chunks, { 'type' : 'audio/ogg; codecs=opus' });
+      chunks = [];
+  // Create a audio URL from the blob data
+    var audioUrl = window.URL.createObjectURL(blob);
+    console.log(audioUrl);
+    
+    // Create a new audio element, set the audio URL and append to the audioContainer
+  
+    
+    
+     var audioElement = document.createElement('audio');
+  audioElement.src= audioUrl;
+  audioElement.controls = true;
+  var audioContainer= document.querySelector('#audioContainer');
+  audioContainer.appendChild(audioElement);
+});
+  // Create a new audio element, set the audio URL and append to the audioContainer
+  
+ 
+  
+  
+  recordBtn.addEventListener('click', function(evt) {
+    evt.preventDefault();
+    console.log('click');
+    if(recording) {
+      recordBtn.classList.remove('recording');
+      recordBtn.innerHTML = 'Start;'
+      
+      // Code::Stop recording media
+      mediaRecorder.stop();
+
+    } else {
+      recordBtn.classList.add('recording');
+      recordBtn.innerHTML = 'Stop';
+      // Code:: Start recording media
+     mediaRecorder.start();
+    }
+    recording = !recording;
+    
+    
+  });
+}
+
+function enableAudio() {
+  if (navigator.mediaDevices && navigator.mediaDevices.getUserMedia) {
+    // Code:: Get audio stream and call bindButtons with stream
+navigator.mediaDevices.getUserMedia({
+         audio: true
+})
+    .then(bindButtons)
+  } else {
+     console.log('getUserMedia not supported on your browser!');
+  }
+}
+
+enableAudio();
+</script>
+
+</html>
+
+
+
+
